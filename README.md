@@ -24,7 +24,7 @@ Tests check scene format, links, both sample routes, safe text rendering, the re
 2. Create additional files in that same folder, using lowercase names with hyphens, such as `open-door.md`. Filenames are case-sensitive on GitHub Pages.
 3. Put a `# Title` first, then prose with a blank line between paragraphs.
 4. At the end, add `## Choices` with ordinary Markdown links. Each link becomes a button, labelled exactly as written. For a single continuation, use `[Next](next-scene.md)`.
-5. For an ending, leave out `## Choices` entirely. The reader shows “The end” with no controls.
+5. For an ending, leave out `## Choices` entirely. The reader shows “The end” with no story choices.
 
 ```md
 # An open door
@@ -80,7 +80,9 @@ The opening fades in from black. A scene fades out over 220 ms and the next fade
 
 Progress saves automatically in this browser under the key `story-time:scene`. Reopening resumes the last successfully displayed scene, including an ending. It does not sync between devices or between different site addresses. If browser storage is unavailable, the story still plays and a notice explains that progress cannot be saved.
 
-Renaming or removing a saved scene sends that reader to `start.md`, with an explanation. A temporary loading error keeps their saved place and allows retrying. Prefer to keep published filenames stable. There is no Restart control. **For author testing only**, clear the site's saved data in browser developer tools to replay the other route; this removes saved progress for that browser.
+Renaming or removing a saved scene sends that reader to `start.md`, with an explanation. A temporary loading error keeps their saved place and allows retrying. Prefer to keep published filenames stable.
+
+A discreet **Restart** button is temporarily included for author testing. It returns to `start.md` and updates the saved position only after that scene loads successfully. It is available at endings and observes the same pause as the story choices. To remove it later, remove the marked button in `docs/index.html`, its reference/event binding and `setBusy` line in `docs/app.js`, and the `.restart` rules in `docs/styles.css`.
 
 Long scenes make the page taller. The buttons follow the text in normal page flow, so they never cover it. Short scenes leave the choices near the bottom of the frame. The reader uses installed serif fonts and needs no font downloads.
 
@@ -93,7 +95,8 @@ The local preview uses the same `/story_time/` prefix. All code and scene reques
 ## Before merging
 
 - Run `node --test` and confirm the pull-request check passes.
-- In a fresh browser session, open the story, choose Next, and try each route (using cleared test progress or a separate browser for the second route).
+- Open the story, choose Next, and try each route, using Restart between routes.
+- Restart from an ending, then reopen the page; verify that it resumes at the opening.
 - Reopen the same address at the decision and at an ending; verify it resumes in the same place.
 - Watch a new scene appear: choices should remain dim briefly, then become available. Tapping during the pause must not skip a scene.
 - On a real phone, check portrait and landscape, tap a choice, and long-press a button to check that its text is not selected. Use a long passage and confirm you can scroll through it to the buttons.

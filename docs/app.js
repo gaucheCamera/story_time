@@ -6,6 +6,7 @@ const titleElement = document.querySelector("#scene-title");
 const proseElement = document.querySelector("#prose");
 const choicesElement = document.querySelector(".choices");
 const noticeElement = document.querySelector("#notice");
+const restartButton = document.querySelector(".restart");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let storageUnavailable = false;
 let initialLoad = true;
@@ -106,6 +107,7 @@ const reader = createReader({
   save: progress.save,
   setBusy(busy) {
     sceneElement.setAttribute("aria-busy", String(busy));
+    restartButton.disabled = busy;
     choicesElement.querySelectorAll("button").forEach((button) => { button.disabled = busy; });
   },
   leave: () => fade(1, 0),
@@ -124,4 +126,6 @@ const reader = createReader({
   }
 });
 
+// Temporary author testing shortcut; it uses normal navigation and saves only on success.
+restartButton.addEventListener("click", () => reader.go(START_SCENE));
 reader.go(progress.read());

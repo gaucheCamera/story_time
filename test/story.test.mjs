@@ -169,3 +169,22 @@ test("every reachable branch loads and saves its destination", async () => {
     pending.push(...scene.choices.map((choice) => choice.target));
   }
 });
+
+test("restarting from an ending replaces saved progress only when the opening loads", async () => {
+  let saved = "river.md";
+  let offline = false;
+  const { reader } = harness({
+    load: async (id) => {
+      if (offline) throw new Error("Offline");
+      return { id };
+    },
+    save: (id) => { saved = id; }
+  });
+  await reader.go("river.md");
+  offline = true;
+  assert.equal(await reader.go("start.md"), false);
+  assert.equal(saved, "river.md");
+  offline = false;
+  assert.equal(await reader.go("start.md"), true);
+  assert.equal(saved, "start.md");
+});

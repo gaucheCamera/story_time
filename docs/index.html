@@ -12,7 +12,6 @@
   </head>
   <body>
     <main class="frame" aria-label="Story reader">
-      <header class="masthead"><span class="mark" aria-hidden="true">◇</span> Story Time <span class="rule" aria-hidden="true"></span></header>
       <section class="scene" aria-busy="true">
         <article class="passage" aria-labelledby="scene-title">
           <h1 id="scene-title" tabindex="-1">A moment of quiet.</h1>
@@ -21,6 +20,8 @@
         <nav class="choices" aria-label="Continue the story"></nav>
       </section>
       <p class="notice" id="notice" role="status" hidden></p>
+      <!-- Temporary author testing control; remove with its binding in app.js. -->
+      <button class="restart" type="button" disabled>Restart</button>
       <footer class="ornament" aria-hidden="true"><span></span>◇<span></span></footer>
     </main>
     <noscript><p class="noscript">Please enable JavaScript to read this story.</p></noscript>
