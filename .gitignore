@@ -1,3 +1,4 @@
 .obsidian/
 .local/
 node_modules/
+.Rproj.user
