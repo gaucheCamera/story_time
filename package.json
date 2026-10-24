@@ -1,0 +1,9 @@
+{
+  "name": "story-time",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "preview": "node tools/serve.mjs"
+  }
+}
