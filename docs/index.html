@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080909">
+    <meta name="description" content="A quiet story. A choice. Somewhere new.">
+    <title>Story Time</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <main class="frame" aria-label="Story reader">
+      <section class="scene" aria-busy="true">
+        <article class="passage" aria-labelledby="scene-title">
+          <h1 id="scene-title" tabindex="-1">A moment of quiet.</h1>
+          <div id="prose"><p>Opening the story…</p></div>
+        </article>
+        <nav class="choices" aria-label="Continue the story"></nav>
+      </section>
+      <p class="notice" id="notice" role="status" hidden></p>
+      <!-- Temporary author testing control; remove with its binding in app.js. -->
+      <button class="restart" type="button" disabled>Restart</button>
+      <footer class="ornament" aria-hidden="true"><span></span>◇<span></span></footer>
+    </main>
+    <noscript><p class="noscript">Please enable JavaScript to read this story.</p></noscript>
+  </body>
+</html>
