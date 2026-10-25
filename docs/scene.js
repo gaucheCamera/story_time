@@ -15,9 +15,10 @@ export function parseScene(source) {
     text = text.slice(metadata[0].length).trim();
   }
 
+  if (!text) throw new Error("Add story text or a # Title.");
   const title = text.match(/^# ([^\n]+)(?:\n|$)/);
-  if (!title) throw new Error("Start the scene with a # Title.");
-  const sections = text.slice(title[0].length).split(/^## Choices[ \t]*$/m);
+  const body = title ? text.slice(title[0].length) : text;
+  const sections = body.split(/^## Choices[ \t]*$/m);
   if (sections.length > 2) throw new Error("Use only one ## Choices section, at the end.");
   const choices = [];
   if (sections.length === 2) {
@@ -43,7 +44,7 @@ export function parseScene(source) {
       blocks.push({ type: "p", text: paragraph.replace(/\n/g, " ") });
     }
   }
-  return { title: title[1].trim(), blocks, choices, ...colours };
+  return { title: title ? title[1].trim() : "", blocks, choices, ...colours };
 }
 
 export function inlineHtml(text) {

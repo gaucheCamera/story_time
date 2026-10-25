@@ -24,8 +24,29 @@ test("one link is a continuation; no choices is an ending", () => {
   assert.deepEqual(parseScene("# An ending\n\nStill water.").choices, []);
 });
 
+test("untitled scenes preserve their first paragraph and work with choices or as endings", () => {
+  const scene = parseScene("The first paragraph.\n\nThe second paragraph.\n\n## Choices\n- [Next](next.md)");
+  assert.equal(scene.title, "");
+  assert.deepEqual(scene.blocks, [
+    { type: "p", text: "The first paragraph." },
+    { type: "p", text: "The second paragraph." }
+  ]);
+  assert.deepEqual(scene.choices, [{ label: "Next", target: "next.md" }]);
+  assert.deepEqual(parseScene("An ending without a heading.").choices, []);
+});
+
+test("untitled scenes still accept colour metadata and formatted prose", () => {
+  const scene = parseScene('---\r\nbackground: "#101014"\r\naccent: "#abc"\r\n---\r\n\r\nA **quiet** beginning.\r\n\r\n## An interlude\r\n\r\nMore text.');
+  assert.equal(scene.title, "");
+  assert.equal(scene.background, "#101014");
+  assert.equal(scene.accent, "#abc");
+  assert.deepEqual(scene.blocks[0], { type: "p", text: "A **quiet** beginning." });
+  assert.deepEqual(scene.blocks[1], { type: "h2", text: "An interlude" });
+});
+
 test("authoring mistakes produce helpful errors instead of accidental endings", () => {
-  assert.throws(() => parseScene("No title"), /# Title/);
+  assert.throws(() => parseScene("   "), /Add story text/);
+  assert.throws(() => parseScene('---\naccent: "#abc"\n---'), /Add story text/);
   assert.throws(() => parseScene("# Title\n\n## Choices"), /Add a choice/);
   assert.throws(() => parseScene("# Title\n\n## Choices\n- [[next]]"), /Button text/);
   assert.throws(() => parseScene("# Title\n\n## Choices\n- [Next](next.md)\n\nMore prose"), /Button text/);
