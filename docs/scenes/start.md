@@ -1,8 +1,8 @@
-The last train has gone. Beyond the station, the road ends at a river you do not remember crossing.
+A ray of sunlight hits your face and wakes you. 
 
-On the opposite bank, a house keeps one window lit.
+Spring is here, should have closed the window shutters. 
 
-You have nowhere you need to be before morning.
 
 ## Choices
-- [Next](crossing.md)
+- [Wake up and go about your day](chores.md)
+- [Stay in bed a little longer](snooz.md)
