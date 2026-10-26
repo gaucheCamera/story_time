@@ -22,13 +22,11 @@ Tests check scene format, links, both sample routes, safe text rendering, the re
 
 1. Start in `docs/scenes/start.md`. This is the entry point for a new reader.
 2. Create additional files in that same folder, using lowercase names with hyphens, such as `open-door.md`. Filenames are case-sensitive on GitHub Pages.
-3. Put a `# Title` first, then prose with a blank line between paragraphs.
+3. Write prose with a blank line between paragraphs. A `# Title` at the start is optional; omit it for a scene with no displayed heading.
 4. At the end, add `## Choices` with ordinary Markdown links. Each link becomes a button, labelled exactly as written. For a single continuation, use `[Next](next-scene.md)`.
 5. For an ending, leave out `## Choices` entirely. The reader shows “The end” with no story choices.
 
 ```md
-# An open door
-
 Light falls across the hallway. Somewhere, a clock stops.
 
 You hear *one quiet step*.
@@ -38,11 +36,13 @@ You hear *one quiet step*.
 - [Wait in the hallway](hallway.md)
 ```
 
-The supported Markdown subset is paragraphs, a `#` scene title, `##` subheadings, `*italics*`, `**bold**`, and `> blockquotes`. Leave blank lines around headings and quotes. Choice labels are plain text. Raw HTML displays as text. Images, prose hyperlinks, lists, tables, embeds, Obsidian `[[wikilinks]]` and other Markdown extensions are not implemented.
+The supported Markdown subset is paragraphs, an optional `#` scene title, `##` subheadings, `*italics*`, `**bold**`, and `> blockquotes`. Leave blank lines around headings and quotes. Choice labels are plain text. Raw HTML displays as text. Images, prose hyperlinks, lists, tables, embeds, Obsidian `[[wikilinks]]` and other Markdown extensions are not implemented.
+
+Story text and choice labels are centered. Untitled scenes have no heading or reserved heading space; their browser tab uses the generic Story Time name. `start.md` is a short untitled example, while `crossing.md` is a longer untitled passage for trying scrolling. The two endings retain titles as examples of the optional format.
 
 ### Optional colours
 
-Add this at the very top of a file, before its title. Both fields are optional; use three- or six-digit hex values. A scene without colours returns to the default dark palette. Choose dark backgrounds so the off-white text remains readable.
+Add this at the very top of a file, before its prose or optional title. Both fields are optional; use three- or six-digit hex values. A scene without colours returns to the default dark palette. Choose dark backgrounds so the off-white text remains readable.
 
 ```yaml
 ---
@@ -90,12 +90,13 @@ Long scenes make the page taller. The buttons follow the text in normal page flo
 
 After reviewing and merging, configure the repository's **Settings → Pages → Deploy from a branch**, with **`main`** and **`/docs`** as the source, if Pages is available for this repository/account; see [GitHub's publishing guide](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). The intended address is `https://gauchecamera.github.io/story_time/`. No custom build workflow is required. `docs/.nojekyll` keeps the Markdown files available unchanged.
 
-The local preview uses the same `/story_time/` prefix. All code and scene requests are relative to the site. This repository is currently private; this prototype does not change repository visibility or enable Pages. A local check is not a check of the deployed site.
+The local preview uses the same `/story_time/` prefix. All code and scene requests are relative to the site. A local check is not a check of the deployed site.
 
 ## Before merging
 
 - Run `node --test` and confirm the pull-request check passes.
 - Open the story, choose Next, and try each route, using Restart between routes.
+- Check the short and long untitled passages, centered choice labels, larger top ornament and four corner squares. Scroll through `crossing.md` to reach its choices, and check that a titled ending still displays its heading.
 - Restart from an ending, then reopen the page; verify that it resumes at the opening.
 - Reopen the same address at the decision and at an ending; verify it resumes in the same place.
 - Watch a new scene appear: choices should remain dim briefly, then become available. Tapping during the pause must not skip a scene.

@@ -2,6 +2,7 @@ import { parseScene, inlineHtml } from "./scene.js";
 import { createReader, createProgress, FADE_MS, START_SCENE } from "./reader.js";
 
 const sceneElement = document.querySelector(".scene");
+const passageElement = document.querySelector(".passage");
 const titleElement = document.querySelector("#scene-title");
 const proseElement = document.querySelector("#prose");
 const choicesElement = document.querySelector(".choices");
@@ -65,7 +66,8 @@ function addButton(label, target) {
 function present(scene, moveFocus) {
   initialLoad = false;
   titleElement.textContent = scene.title;
-  document.title = `${scene.title} · Story Time`;
+  titleElement.hidden = !scene.title;
+  document.title = scene.title ? `${scene.title} · Story Time` : "Story Time";
   proseElement.replaceChildren(...scene.blocks.map(({ type, text }) => {
     const block = document.createElement(type);
     block.innerHTML = inlineHtml(text);
@@ -85,7 +87,10 @@ function present(scene, moveFocus) {
   notice(loadNotice);
   loadNotice = "";
   window.scrollTo({ top: 0, behavior: "instant" });
-  if (moveFocus) titleElement.focus({ preventScroll: true });
+  if (moveFocus) {
+    const focusTarget = scene.title ? titleElement : passageElement;
+    focusTarget.focus({ preventScroll: true });
+  }
 }
 
 async function fade(from, to) {
@@ -117,6 +122,7 @@ const reader = createReader({
     console.error(error);
     sceneElement.style.opacity = "1";
     if (!hasScene) {
+      titleElement.hidden = false;
       titleElement.textContent = "A pause in the story.";
       proseElement.textContent = "This passage could not be opened. Check your connection and try again.";
       choicesElement.replaceChildren();

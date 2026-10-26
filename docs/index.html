@@ -12,9 +12,14 @@
   </head>
   <body>
     <main class="frame" aria-label="Story reader">
+      <span class="frame-corner top-left" aria-hidden="true"></span>
+      <span class="frame-corner top-right" aria-hidden="true"></span>
+      <span class="frame-corner bottom-left" aria-hidden="true"></span>
+      <span class="frame-corner bottom-right" aria-hidden="true"></span>
+      <div class="ornament ornament-top" aria-hidden="true"><span></span>◇<span></span></div>
       <section class="scene" aria-busy="true">
-        <article class="passage" aria-labelledby="scene-title">
-          <h1 id="scene-title" tabindex="-1">A moment of quiet.</h1>
+        <article class="passage" aria-label="Story passage" tabindex="-1">
+          <h1 id="scene-title" tabindex="-1" hidden></h1>
           <div id="prose"><p>Opening the story…</p></div>
         </article>
         <nav class="choices" aria-label="Continue the story"></nav>
