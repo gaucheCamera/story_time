@@ -25,9 +25,11 @@ export function parseScene(source) {
     const lines = sections[1].split("\n").filter((line) => line.trim());
     if (!lines.length) throw new Error("Add a choice, or remove ## Choices for an ending.");
     for (const line of lines) {
+      // Plain bullets are draft notes; only Markdown links become playable choices.
+      if (/^-(?:[ \t]+[^\[\]\n]*)?$/.test(line.trim())) continue;
       const link = line.match(/^- \[([^\]\n]+)\]\(([^)]+)\)\s*$/);
       if (!link || !isSceneName(link[2]) || !link[1].trim()) {
-        throw new Error("Write each choice as - [Button text](scene-name.md).");
+        throw new Error("Write an active choice as - [Button text](scene-name.md), or use a plain bullet for a draft option.");
       }
       choices.push({ label: link[1].trim(), target: link[2] });
     }
