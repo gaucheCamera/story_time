@@ -38,6 +38,20 @@ You hear *one quiet step*.
 
 The supported Markdown subset is paragraphs, an optional `#` scene title, `##` subheadings, `*italics*`, `**bold**`, and `> blockquotes`. Leave blank lines around headings and quotes. Choice labels are plain text. Raw HTML displays as text. Images, prose hyperlinks, lists, tables, embeds, Obsidian `[[wikilinks]]` and other Markdown extensions are not implemented.
 
+### Draft options
+
+Keep planned options as plain bullets under `## Choices` until you are ready to connect them. These notes stay in the Markdown file and do not appear as buttons or require destination files. A bare `-` is also accepted as a placeholder.
+
+```md
+## Choices
+- [Follow the girl](follow-girl.md)
+- Return home
+- Visit the market (write later)
+-
+```
+
+Only **Follow the girl** appears in the reader. To activate another option, give it a Markdown link and create its destination file. Active links must still point to existing, non-empty scenes; malformed links still fail the checks. If every option is a draft, the reader treats that passage as an ending for now.
+
 Story text and choice labels are centered. Untitled scenes have no heading or reserved heading space; their browser tab uses the generic Story Time name. `start.md` is a short untitled example, while `crossing.md` is a longer untitled passage for trying scrolling. The two endings retain titles as examples of the optional format.
 
 ### Optional colours

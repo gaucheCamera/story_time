@@ -24,6 +24,26 @@ test("one link is a continuation; no choices is an ending", () => {
   assert.deepEqual(parseScene("# An ending\n\nStill water.").choices, []);
 });
 
+test("draft option bullets stay out of playable choices while active links keep their order", () => {
+  const scene = parseScene("A morning begins.\n\n## Choices\n- Visit the market\n- [Open the door](door.md)\n-\n- Return home (write later)\n- [Follow the path](path.md)");
+  assert.deepEqual(scene.choices, [
+    { label: "Open the door", target: "door.md" },
+    { label: "Follow the path", target: "path.md" }
+  ]);
+  assert.deepEqual(scene.blocks, [{ type: "p", text: "A morning begins." }]);
+});
+
+test("a scene with only draft options has no playable choices or required destinations", () => {
+  const scene = parseScene("A pause in the story.\n\n## Choices\n- Return home\n- ");
+  assert.deepEqual(scene.choices, []);
+});
+
+test("draft notes do not hide malformed or invalid active links", () => {
+  for (const link of ["- [Next](../outside.md)", "- [Next](bad name.md)", "- [Next]()", "- [Next](next.md", "- [[next]]"]) {
+    assert.throws(() => parseScene(`A morning begins.\n\n## Choices\n- Write this route later\n${link}`), /Button text/);
+  }
+});
+
 test("untitled scenes preserve their first paragraph and work with choices or as endings", () => {
   const scene = parseScene("The first paragraph.\n\nThe second paragraph.\n\n## Choices\n- [Next](next.md)");
   assert.equal(scene.title, "");
