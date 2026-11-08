@@ -1,7 +1,8 @@
 Today is a busy day. 
 
 
+## Choices 
 
 - Find the midwife
-- Meet the florist
 - Check out on the blacksmith
+- Go help the florist
